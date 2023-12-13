@@ -1,12 +1,31 @@
+/*
+This is the main portion of functionality of Mountains and Valleys.
+
+The purpose of this program
+is to take a range of numbers that is given by the user between 10 and 10,000. The range is then
+peeled to determine how many numbers in the range follow either a mountain or valley pattern.
+
+A number that follows a mountain pattern is determined by the front most digit and if the following digit is greater than the front most. If that is true,
+then the next digit must be less than the previous and so on. An example would be 3546 where 3<5>4<6. The digits then form a pattern of /\/\/\ where the first is less than the next.
+
+A number that follows a valley is similar to the mountain pattern, only it checks if the next digit is less than the front most digit. An example of this would be 6453
+where 6>4<5>3 and the pattern continues like \/\/.
+
+Any numbers that do not follow either of these two patterns are not counted. Such examples are 3564, 3354, 3003 and so on.
+
+Some comments are code that has been used to debug.
+*/
+
+
+//These reference the other header files necessary for this program to run
 #include <iostream>
 #include "functions.h"
 
+//this program outpusts using the standard cout function
 using std::cout, std::endl;
 
-//Some comments were code used to debug.
-
 bool is_valid_range(int a, int b) {
-	//Checking if the range between a and be are valid.
+	//Checks if the range given is between 10 and 10,000 thus making it valid, and if a is less than b
 	if(a >= 10 && b < 10000 && a <= b){
 		return true;
 	} else{
@@ -14,15 +33,24 @@ bool is_valid_range(int a, int b) {
 	}
 }
 
+
 int numLength = 0;
 
 char classify_mv_range_type(int number) {
     //peels 'number' to compare each digit stored in temporary variables to see what is greater, lesser, or the same.
     
-    //cout << "Your input: " << number << endl;//
+    //cout << "Your input: " << number << endl;
+
+    //range type 'N' for none, 'V' for valley, and 'M' for mountain. Default is N
     char rangeType = 'N';
+
+    //length if the number in digits
     numLength = -1;
+
+    //The divisor used for peeling
     int totalDivider = 1;
+
+    // this for-loop determines how many digits are in the number
     for(int i = number; i > 0; i /= 10){
         numLength += 1;
     }
@@ -32,7 +60,9 @@ char classify_mv_range_type(int number) {
         }
     //cout << "NumLength: " << numLength +1  << endl;//
     }
-    int tempL = number;
+
+
+    int tempL ;
     int temp ;
     int tempR ;
     int tempDivider = totalDivider;
